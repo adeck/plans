@@ -9,6 +9,7 @@ I've wanted to run and maintain my own servers for:
 - web (https)
 - SSH (bastion host)
 - DNS
+- IRC
 - SMTP + IMAP
 - iodine
 - SIP / VoIP

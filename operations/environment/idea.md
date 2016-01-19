@@ -28,18 +28,27 @@ the other servers by common crypto names because they're specific services aren'
 
 In subsequent discussion, public-internet-facing services not intended for the general public must be hidden behind SPA
 running on a pseudorandomly chosen port, and the service(s) hidden by SPA must also be running on nonstandard
-pseudorandomly chosen ports.
+pseudorandomly chosen ports. If it's possible to protect nonregistered ports as if they were registered, then do so, otherwise use pseudorandomly chosen registered ports.
 
 ## VPN server
 
 The only publicly-accessible service is key-based VPN.
 The VPN should be:
 
-- UDP based
+- UDP
 - not the default route for any client
 
 All other machines within the infrastructure are clients within this VPN, and communication between hosts should take
-place over the VPN where possible, falling back to the regular network only when the VPN is down.
+place over the VPN. Even within the VPN, interhost communication should still only take place over encrypted channels
+(so that, should the VPN server itself become compromised, it can DoS servers but not MitM their connections).
+
+The VPN's job is to hide the servers from each other as much as possible, and hide the nature of their traffic from
+other hosts on their respective networks. This is done, in part, to make recognizing a compromised host easier, and in
+part to decrease the attack surface; IP addresses cannot be spoofed within the VPN, so if any server aside from the VPN
+is attacked that attack can be accurately monitored, reported, and automatically halted by automatically isolating the
+offending server.
+
+If the VPN server itself is under attack, 
 
 ## SSH server
 
